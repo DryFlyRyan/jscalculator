@@ -1,41 +1,72 @@
 $(document).ready(function () {
 alert("document ready")
-var display = "0";
+var display = '0';
 var input1 = null;
+var input2 = null;
+var operation = '';
 
 $('.display').html(display);
 
 var concatNumber = function (a) {
   // alert("function!");
   display = display + a;
-  $('.display').html(display);
+  pushDisplay();
 };
 
 var functPress = function (a) {
   input1 = display;
   display = a;
+}
 
+var initialOperation = function (a) {
+  input1 = parseInt(display);
+  // alert("idCall = " + a);
+  // alert("input = " + input1);
+  display = a;
+  operation = a;
+  pushDisplay();
+}
+
+var operationRun = function (a, b){
+  if (operation === '%') {
+    input1 = parseInt(display);
+    input1 = input1 * 100;
+    display = operation + input1.toString();
+    pushDisplay();
+  }
+}
+
+// var secondaryOperation = function () {
+//
+// }
+
+var pushDisplay = function () {
+  $('.display').html(display);
 }
 
 $('.number-button').on('click', function () {
   var idCall = $(this).find('a').attr('id');
+  var displayInt = parseInt(display);
+  // alert(displayInt);
+  // alert(displayInt.type() );
   var negative = function () {
-    var dispNum = parseInt(display);
-    dispNum = dispNum * -1;
+    displayInt = dispNum * -1;
     display = dispNum.toString();
-    $('.display').html(display);
+    pushDisplay();
   }
 
   if (display === "0") {
-    display = "";
+    display = "0";
+    // alert('first if');
     display = idCall;
-    $('.display').html(display);
-  } else if (idCall === "-") {
+    pushDisplay();
+  } else if (idCall === "-/+") {
     if (display.indexOf('-') > 0) {
-      negative();
+      return;
 
     } else {
-      display = idCall + display;
+      // alert('negative else');
+      negative();
     }
   } else if (idCall === ".") {
       if (display.indexOf('.') > 0) {
@@ -43,93 +74,47 @@ $('.number-button').on('click', function () {
       } else {
         concatNumber(idCall);
       }
-  }  else {
+  } else if (isNaN(displayInt)) {
+      display = idCall;
+      pushDisplay();
+  }
+  else {
     concatNumber(idCall);
   }
 });
 
-//     switch (idCall) {
-//
-//       case '2':
-//         display = display + '2';
-//         break;
-//       case '3':
-//         display = display + '3';
-//         break;
-//       case '4':
-//         display = display + '4';
-//         break;
-//       case '5':
-//         display = display + '5';
-//         break;
-//       case '6':
-//         display = display + '6';
-//         break;
-//       case '7':
-//         display = display + '7';
-//         break;
-//       case '8':
-//         display = display + '8';
-//         break;
-//       case '9':
-//         display = display + '9';
-//         break;
-//       case '0':
-//         display = display + '0';
-//         break;
-//       case '.':
-//         display = display + '.';
-//         break;
-//       case '-':
-//         display = '-' + display;
-//         break;
-//       default:
-//         break;
-//       }
-//     } else {
-//       switch (idCall) {
-//         case '1':
-//           $(display).append('1');
-//           break;
-//         case '2':
-//           display = display + '2';
-//           break;
-//         case '3':
-//           display = display + '3';
-//           break;
-//         case '4':
-//           display = display + '4';
-//           break;
-//         case '5':
-//           display = display + '5';
-//           break;
-//         case '6':
-//           display = display + '6';
-//           break;
-//         case '7':
-//           display = display + '7';
-//           break;
-//         case '8':
-//           display = display + '8';
-//           break;
-//         case '9':
-//           display = display + '9';
-//           break;
-//         case '0':
-//           display = display + '0';
-//           break;
-//         case '.':
-//           display = display + '.';
-//           break;
-//         case '-':
-//           display = '-' + display;
-//           break;
-//         default:
-//           break;
-//         }
-//       }
-//   $('.display').update(display);
-// });
+$('.operation-btn').click(function () {
+  var idCall = $(this).find('a').attr('id');
+
+  switch(idCall) {
+
+    case 'clear':
+    display = "0";
+    input1 = null;
+    pushDisplay();
+    break;
+    case '=':
+
+    if (input2.length) {
+    input2 = parseInt(display);
+    } else {
+      return;
+    }
+    break;
+
+    case '%':
+    input1 = parseInt(display);
+    input1 = input1 * 100;
+    display = operation + input1.toString();
+    pushDisplay();
+    default:
+    // alert('default');
+    initialOperation(idCall);
+    break;
+
+  }
+});
+
 
 
 
