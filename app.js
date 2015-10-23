@@ -19,16 +19,23 @@ var functPress = function (a) {
 
 $('.number-button').on('click', function () {
   var idCall = $(this).find('a').attr('id');
-  if (display === 0) {
+  var negative = function () {
+    var dispNum = parseInt(display);
+    dispNum = dispNum * -1;
+    display = dispNum.toString();
+    $('.display').html(display);
+  }
+
+  if (display === "0") {
     display = "";
     display = idCall;
-    $(display).html(display);
+    $('.display').html(display);
   } else if (idCall === "-") {
     if (display.indexOf('-') > 0) {
-      var posVal = $(display).text().replace('-', '');
-      display = posVal;
+      negative();
+
     } else {
-      concatNumber(idCall);
+      display = idCall + display;
     }
   } else if (idCall === ".") {
       if (display.indexOf('.') > 0) {
