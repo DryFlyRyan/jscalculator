@@ -31,6 +31,12 @@ html, body {
   align-items: center;
 }
 
+.left-justify {
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+}
+
 .center-stretch {
   justify-content: center;
   align-content: center;
@@ -46,6 +52,15 @@ html, body {
 	display: flex;
 }
 
+.display-container {
+  height: 100%;
+  width: 100%;
+}
+
+.display {
+  display: flex;
+}
+
 .number-button {
   min-width: 90px;
   min-height: 90px;
@@ -56,6 +71,28 @@ html, body {
   border: 1px solid black;
 }
 
+.med-button {
+  min-width: 45%;
+  min-height: 90px;
+
+  height: auto;
+  display: flex;
+  border-radius: 25%;
+  border: 1px solid black;
+}
+
+.big-button {
+  min-width: 90%;
+  min-height: 90px;
+
+  height: auto;
+  display: flex;
+  border-radius: 25%;
+  border: 1px solid black;
+}
+
+.big-button a,
+.med-button a,
 .number-button a {
   text-decoration: none;
   color: black;
@@ -92,6 +129,7 @@ html, body {
   border: 2px solid red;
 }
 
-.numbers {
+.numbers,
+.functions {
   height: 100%;
 }
