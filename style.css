@@ -54,9 +54,14 @@ html, body {
 
 .display-container {
   height: 100%;
-  width: 100%;
+  width: 80%;
+}
+.op-container {
+  height: 100%;
+  width: 20%;
 }
 
+.op-window,
 .display {
   display: flex;
 }
