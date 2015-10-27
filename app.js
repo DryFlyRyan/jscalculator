@@ -58,20 +58,27 @@ $('.number-button, .operation-btn').on('click', function () {
     pushDisplay();
   }
 
-  else if (idCall === "-/+") {
-    console.log('negative if');
+  else if (idCall === "-") {
+    console.log('negative bucket');
     if (display.indexOf('-') >= 0
-        && display.lastIndexOf('-') !== (display.lastIndexOf('--')+1)
-        && display.lastIndexOf('-') > display.lastIndexOf(/[*+\-/()]/)) {
+        && display.lastIndexOf('-') > display.lastIndexOf(/[–*+()]/)) {
+          console.log('negative if if')
             var target = display.lastIndexOf('-');
-            var split = display.split(target, 1);
-            var splitJoin = split.join('');
+            var splitJoin = [display.slice(0, target) + display.slice(target+1)].join();
             display = splitJoin;
             pushDisplay();
+    } else if (display.indexOf('+') < 0 && display.indexOf('-') < 0){
+      console.log('negative if else');
+      console.log('display = ' + display);
+      console.log('display.indexOf(operator) = ' + display.indexOf(/[\/\+\-\*]/));
+      console.log('Index Of - = ' + display.indexOf('-'));
+      concatStart('-');
     } else {
       console.log('negative else');
-      var target = display.lastIndexOf(/[*+\-/()]/);
+      var target = display.lastIndexOf(/[–*+()]/);
       var slice = [display.slice(0, target) + '-' + display.slice(target)].join;
+      display = slice;
+      pushDisplay();
     }
   }
 
